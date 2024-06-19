@@ -37,6 +37,5 @@ namespace UserManagementAPI.Services
 
             return clientDtos;
         }
-
     }
 }

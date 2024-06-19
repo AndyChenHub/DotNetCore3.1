@@ -8,7 +8,7 @@ namespace UserManagementAPI.Profiles
     {
         public AutomapperProfiles()
         {
-            CreateMap<User, UserDto>();
+            CreateMap<User, UserDto>().ReverseMap();
         }
     }
 }

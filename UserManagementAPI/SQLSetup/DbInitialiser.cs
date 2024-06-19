@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using UserManagementAPI.Data;
 using UserManagementAPI.Models;
 
-namespace UserManagementAPI.Setup
+namespace UserManagementAPI.SQLSetup
 {
     public static class DbInitialiser
     {
@@ -23,8 +23,8 @@ namespace UserManagementAPI.Setup
             }
 
 
-            string[] firstNames = { "John", "Jane", "Michael", "Emily", "William", "Olivia", "James", "Sophia", "Alexander", "Emma", "Daniel", "Isabella", "David", "Mia", "Benjamin", "Charlotte", "Samuel", "Amelia", "Ethan", "Ella" };
-            string[] lastNames = { "Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor", "Anderson", "Thomas", "Jackson", "White", "Harris", "Martin", "Thompson", "Garcia", "Martinez", "Robinson" };
+            string[] firstNames = { "John", "John", "John", "Emily", "James", "Olivia", "James", "Sophia", "Alexander", "Emma", "Daniel", "James", "David", "Mia", "Williams", "Charlotte", "Martin", "Amelia", "Ethan", "Ella" };
+            string[] lastNames = { "Smith", "James", "Williams", "Jones", "Williams", "Williams", "James", "Wilson", "Moore", "Taylor", "Anderson", "Ethan", "Jackson", "White", "James", "Martin", "Martin", "Garcia", "Martinez", "Robinson" };
 
             // Generate Users
             var users = new User[firstNames.Length];
@@ -34,7 +34,7 @@ namespace UserManagementAPI.Setup
                 {
                     UserName = $"{firstNames[i]}_{lastNames[i]}",
                     Email = $"{firstNames[i]}_{lastNames[i]}@hotmail.com",
-                    Alias = $"{i + 1}",
+                    Alias = $"{firstNames[i]}_{lastNames[i]}",
                     FirstName = firstNames[i],
                     LastName = lastNames[i],
                     UserType = i < 7 ? UserType.Manager : UserType.Client

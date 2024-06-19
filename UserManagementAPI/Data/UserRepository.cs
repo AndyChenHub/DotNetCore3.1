@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using UserManagementAPI.Data.Interfaces;
 using UserManagementAPI.Models;
 
@@ -44,9 +45,32 @@ namespace UserManagementAPI.Data
 
             return query.ToList();
         }
+
         public User QueryUserById(int id)
         {
             return _context.Users.FirstOrDefault(p => p.UserId == id);
+        }
+        public void AddUser(User user)
+        {
+            _context.Users.Add(user);
+            _context.SaveChanges();
+        }
+
+        public void UpdateUser(User user)
+        {
+            _context.Users.Attach(user); // Attach the entity
+            _context.Entry(user).State = EntityState.Modified; // Set the entity state to Modified
+            _context.SaveChanges(); // Save changes to the database    
+        }
+
+        public void DeleteUser(int id)
+        {
+            var user = _context.Users.Find(id);
+            if (user != null)
+            {
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+            }
         }
     }
 }

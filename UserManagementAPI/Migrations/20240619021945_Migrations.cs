@@ -17,11 +17,11 @@ namespace UserManagementAPI.Migrations
                     UserId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(maxLength: 200, nullable: false),
-                    Email = table.Column<string>(maxLength: 1000, nullable: false),
+                    Email = table.Column<string>(maxLength: 1000, nullable: true),
                     Alias = table.Column<string>(maxLength: 1000, nullable: true),
                     FirstName = table.Column<string>(maxLength: 1000, nullable: true),
                     LastName = table.Column<string>(maxLength: 1000, nullable: true),
-                    UserType = table.Column<int>(nullable: false)
+                    UserType = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

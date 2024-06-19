@@ -8,5 +8,8 @@ namespace UserManagementAPI.Data.Interfaces
         public User QueryUserById (int id);
 
         public IEnumerable<User> QueryUser(string? username, string? email, string? alias, string? firstName, string? lastName);
+        void AddUser(User user);
+        void UpdateUser(User user);
+        void DeleteUser(int id);
     }
 }

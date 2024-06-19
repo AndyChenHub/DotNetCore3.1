@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using UserManagementAPI.Models;
 
@@ -44,7 +45,10 @@ namespace UserManagementAPI.Data
                     .HasMaxLength(1000);
 
                 entity.Property(e => e.UserType)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConversion(
+                        v => v.ToString(),   // Convert enum to string for database storage
+                        v => (UserType)Enum.Parse(typeof(UserType), v));
             });
 
             // Configure Manager entity

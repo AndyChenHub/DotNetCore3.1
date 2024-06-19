@@ -11,10 +11,8 @@ namespace UserManagementAPI.Models
         [Required]
         public Position Position { get; set; }
 
-    // Navigation property for Clients associated with this Manager
         public ICollection<Client> Clients { get; set; }
         
-        // Navigation property for the User associated with this Manager
         public User User { get; set; }
     }
 

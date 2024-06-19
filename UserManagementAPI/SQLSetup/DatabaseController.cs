@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using UserManagementAPI.Data;
 
-namespace UserManagementAPI.Setup
+namespace UserManagementAPI.SQLSetup
 {
     [Route("api")]
     [ApiController]

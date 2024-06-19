@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace UserManagementAPI.Models
 {
@@ -8,7 +9,8 @@ namespace UserManagementAPI.Models
         public int UserId { get; set; }
 
         [StringLength(200)]
-        public string? UserName { get; set; }
+        [Required]
+        public string UserName { get; set; }
 
         [EmailAddress]
         [StringLength(1000)]
@@ -31,7 +33,9 @@ namespace UserManagementAPI.Models
 
     public enum UserType
     {
+        [EnumMember(Value = "Client")]
         Client,
+        [EnumMember(Value = "Manager")]
         Manager
     }
 }

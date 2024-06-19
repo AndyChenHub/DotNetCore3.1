@@ -1,6 +1,6 @@
 # User Management API
 
-This is a User Management API built with .NET Core 3.1 and Entity Framework Core 3.1.
+This is a User Management API built with .NET Core 3.1 and Entity Framework Core 3.1. This project includes a Postman testing collection.
 
 ## Features
 

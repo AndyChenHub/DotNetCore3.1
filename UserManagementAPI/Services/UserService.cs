@@ -81,10 +81,16 @@ public void UpdateUser(int userId, UserDto userDto)
     {
         existingUser.LastName = userDto.LastName;
     }
-    if (userDto.UserType != existingUser.UserType)
-    {
-        existingUser.UserType = userDto.UserType;
-    }
+    if (userDto.UserType == UserType.Client && existingUser.UserType == UserType.Manager)
+            {
+                var clients = _userRepository.QueryClientsByManagerId(userId);
+                if (clients.Any())
+                {
+                    throw new InvalidOperationException("Cannot change UserType to Client because the manager has associated clients.");
+                }
+            }
+
+    existingUser.UserType = userDto.UserType;
 
     _userRepository.UpdateUser(existingUser);
 }

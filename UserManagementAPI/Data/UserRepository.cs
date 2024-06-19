@@ -72,5 +72,30 @@ namespace UserManagementAPI.Data
                 _context.SaveChanges();
             }
         }
+
+        public IEnumerable<Client> QueryClientsByManagerId(int managerId)
+        {
+            return _context.Clients.Where(c => c.ManagerId == managerId).ToList();
+        }
+
+        public void DeleteManager(int managerId)
+        {
+            var manager = _context.Managers.Find(managerId);
+            if (manager != null)
+            {
+                _context.Managers.Remove(manager);
+                _context.SaveChanges();
+            }
+        }
+
+        public void DeleteClient(int clientId)
+        {
+            var client = _context.Clients.Find(clientId);
+            if (client != null)
+            {
+                _context.Clients.Remove(client);
+                _context.SaveChanges();
+            }
+        }
     }
 }

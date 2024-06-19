@@ -8,8 +8,8 @@ namespace UserManagementAPI.Services.Interfaces
         public UserDto GetUserById(int userId);
 
         public IEnumerable<UserDto> GetUsersByFilter(string? username, string? email, string? alias, string? firstName, string? lastName);
-        void CreateUser(UserDto userDto);
-        void UpdateUser(int userId, UserDto userDto);
-        void DeleteUser(int userId);
+        public void CreateUser(UserDto userDto);
+        public void UpdateUser(int userId, UserDto userDto);
+        public void DeleteUser(int userId);
     }
 }

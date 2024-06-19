@@ -89,9 +89,57 @@ public void UpdateUser(int userId, UserDto userDto)
     _userRepository.UpdateUser(existingUser);
 }
 
-        public void DeleteUser(int userId)
+public void DeleteUser(int userId)
         {
+            var user = _userRepository.QueryUserById(userId);
+            if (user == null)
+            {
+                throw new ArgumentException($"User with Id {userId} not found.");
+            }
+
+            switch (user.UserType)
+            {
+                case UserType.Manager:
+                    DeleteManager(userId);
+                    break;
+                case UserType.Client:
+                    DeleteClient(userId);
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unsupported UserType '{user.UserType}'.");
+            }
             _userRepository.DeleteUser(userId);
+        }
+
+        private void DeleteManager(int managerId)
+        {
+            var manager = _userRepository.QueryUserById(managerId);
+
+            if (manager == null)
+            {
+                throw new ArgumentException($"Manager with id {managerId} not found.");
+            }
+
+            // Check if manager has associated clients
+            var clients = _userRepository.QueryClientsByManagerId(managerId);
+            if (clients.Any())
+            {
+                throw new InvalidOperationException($"Manager with id {managerId} cannot be deleted because it has associated clients.");
+            }
+
+            _userRepository.DeleteManager(managerId);
+        }
+
+        private void DeleteClient(int clientId)
+        {
+            var client = _userRepository.QueryUserById(clientId);
+
+            if (client == null)
+            {
+                throw new ArgumentException($"Client with id {clientId} not found.");
+            }
+
+            _userRepository.DeleteClient(clientId);
         }
     }
 }

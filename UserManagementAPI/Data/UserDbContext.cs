@@ -47,7 +47,7 @@ namespace UserManagementAPI.Data
                 entity.Property(e => e.UserType)
                     .IsRequired()
                     .HasConversion(
-                        v => v.ToString(),   // Convert enum to string for database storage
+                        v => v.ToString(),
                         v => (UserType)Enum.Parse(typeof(UserType), v));
             });
 
@@ -74,29 +74,30 @@ namespace UserManagementAPI.Data
 
             // Configure Client entity
             modelBuilder.Entity<Client>(entity =>
-            {
-                entity.ToTable("Clients", "Domain");
+{
+    entity.ToTable("Clients", "Domain");
 
-                entity.HasKey(e => e.ClientId)
-                    .HasName("PK_Domain.Clients");
+    entity.HasKey(e => e.ClientId)
+        .HasName("PK_Domain.Clients");
 
-                entity.Property(e => e.ClientId)
-                    .ValueGeneratedNever();
+    entity.Property(e => e.ClientId)
+        .ValueGeneratedNever();
 
-                entity.Property(e => e.Level)
-                    .IsRequired();
+    entity.Property(e => e.Level)
+        .IsRequired();
 
-                entity.HasOne(e => e.User)
-                    .WithOne(u => u.Client)
-                    .HasForeignKey<Client>(e => e.ClientId)
-                    .HasConstraintName("FK_Domain.Clients_Users");
+    entity.HasOne(e => e.User)
+        .WithOne(u => u.Client)
+        .HasForeignKey<Client>(e => e.ClientId)
+        .HasConstraintName("FK_Domain.Clients_Users")
+        .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasOne(e => e.Manager)
-                    .WithMany(m => m.Clients)
-                    .HasForeignKey(e => e.ManagerId)
-                    .HasConstraintName("FK_Domain.Clients_Managers")
-                    .OnDelete(DeleteBehavior.Restrict);
-            });
+    entity.HasOne(e => e.Manager)
+        .WithMany(m => m.Clients)
+        .HasForeignKey(e => e.ManagerId)
+        .HasConstraintName("FK_Domain.Clients_Managers")
+        .OnDelete(DeleteBehavior.NoAction);
+});
         }
 
     }

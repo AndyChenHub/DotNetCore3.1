@@ -17,7 +17,7 @@ namespace UserManagementAPI.Migrations
                     UserId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(maxLength: 200, nullable: false),
-                    Email = table.Column<string>(maxLength: 1000, nullable: true),
+                    Email = table.Column<string>(maxLength: 1000, nullable: false),
                     Alias = table.Column<string>(maxLength: 1000, nullable: true),
                     FirstName = table.Column<string>(maxLength: 1000, nullable: true),
                     LastName = table.Column<string>(maxLength: 1000, nullable: true),
@@ -55,7 +55,7 @@ namespace UserManagementAPI.Migrations
                 {
                     ClientId = table.Column<int>(nullable: false),
                     Level = table.Column<int>(nullable: false),
-                    ManagerId = table.Column<int>(nullable: false)
+                    ManagerId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -72,8 +72,7 @@ namespace UserManagementAPI.Migrations
                         column: x => x.ManagerId,
                         principalSchema: "Domain",
                         principalTable: "Managers",
-                        principalColumn: "ManagerId",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ManagerId");
                 });
 
             migrationBuilder.CreateIndex(

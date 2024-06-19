@@ -1,9 +1,8 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using UserManagementAPI.Data;
-using UserManagementAPI.Data.Interfaces;
 using UserManagementAPI.Dtos;
 using UserManagementAPI.Models;
 using UserManagementAPI.Services.Interfaces;
@@ -14,9 +13,9 @@ namespace UserManagementAPI.Controllers.UsersController
     [ApiController]
     public class UsersController : ControllerBase
     {
-
         private readonly IUserService _service;
         private readonly ILogger<UsersController> _logger;
+
         public UsersController(IUserService service, ILogger<UsersController> logger)
         {
             _service = service;
@@ -24,11 +23,11 @@ namespace UserManagementAPI.Controllers.UsersController
         }
 
         [HttpGet("{userId}")]
-        public ActionResult<User> GetUserById(int userId)
+        public async Task<ActionResult<User>> GetUserById(int userId)
         {
             try
             {
-                var result = _service.GetUserById(userId);
+                var result = await _service.GetUserByIdAsync(userId);
 
                 if (result != null)
                 {
@@ -45,7 +44,7 @@ namespace UserManagementAPI.Controllers.UsersController
         }
 
         [HttpGet("query")]
-        public ActionResult<User> GetMultipleUsers(
+        public async Task<ActionResult<User>> GetMultipleUsers(
             [FromQuery] string username,
             [FromQuery] string email,
             [FromQuery] string alias,
@@ -54,7 +53,7 @@ namespace UserManagementAPI.Controllers.UsersController
         {
             try
             {
-                var result = _service.GetUsersByFilter(username, email, alias, firstName, lastName);
+                var result = await _service.GetUsersByFilterAsync(username, email, alias, firstName, lastName);
 
                 if (result.Any())
                 {
@@ -71,7 +70,7 @@ namespace UserManagementAPI.Controllers.UsersController
         }
 
         [HttpPost]
-        public ActionResult<User> CreateUser([FromBody] UserDto user)
+        public async Task<ActionResult<User>> CreateUser([FromBody] UserDto user)
         {
             try
             {
@@ -80,7 +79,7 @@ namespace UserManagementAPI.Controllers.UsersController
                     return BadRequest("User is null.");
                 }
 
-                _service.CreateUser(user);
+                await _service.CreateUserAsync(user);
                 return CreatedAtAction(nameof(GetUserById), new { userId = user.UserId }, user);
             }
             catch (Exception ex)
@@ -92,7 +91,7 @@ namespace UserManagementAPI.Controllers.UsersController
         }
 
         [HttpPatch("{userId}")]
-        public ActionResult<User> UpdateUser(int userId, [FromBody] UserDto user)
+        public async Task<ActionResult<User>> UpdateUser(int userId, [FromBody] UserDto user)
         {
             if (user == null)
             {
@@ -101,7 +100,7 @@ namespace UserManagementAPI.Controllers.UsersController
 
             try
             {
-                _service.UpdateUser(userId, user);
+                await _service.UpdateUserAsync(userId, user);
                 return NoContent();
             }
             catch (InvalidOperationException ex)
@@ -122,11 +121,11 @@ namespace UserManagementAPI.Controllers.UsersController
         }
 
         [HttpDelete("{userId}")]
-        public ActionResult DeleteUser(int userId)
+        public async Task<ActionResult> DeleteUser(int userId)
         {
             try
             {
-                _service.DeleteUser(userId);
+                await _service.DeleteUserAsync(userId);
                 return NoContent();
             }
             catch (ArgumentException ex)

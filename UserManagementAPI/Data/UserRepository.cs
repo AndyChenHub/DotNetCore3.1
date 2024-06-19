@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using UserManagementAPI.Data.Interfaces;
 using UserManagementAPI.Models;
@@ -14,9 +15,9 @@ namespace UserManagementAPI.Data
             _context = context;
         }
 
-        public IEnumerable<User> QueryUser(string? username, string? email, string? alias, string? firstName, string? lastName)
+        public async Task<IEnumerable<User>> QueryUserAsync(string? username, string? email, string? alias, string? firstName, string? lastName)
         {
-            var query = _context.Users.AsQueryable();
+            IQueryable<User> query = _context.Users.AsQueryable();
 
             if (!string.IsNullOrEmpty(username))
             {
@@ -43,58 +44,59 @@ namespace UserManagementAPI.Data
                 query = query.Where(u => u.LastName.Contains(lastName));
             }
 
-            return query.ToList();
+            return await query.ToListAsync();
         }
 
-        public User QueryUserById(int id)
+        public async Task<User> QueryUserByIdAsync(int id)
         {
-            return _context.Users.FirstOrDefault(p => p.UserId == id);
+            return await _context.Users.FirstOrDefaultAsync(p => p.UserId == id);
         }
-        public void AddUser(User user)
+
+        public async Task AddUserAsync(User user)
         {
             _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateUser(User user)
+        public async Task UpdateUserAsync(User user)
         {
-            _context.Users.Attach(user); // Attach the entity
-            _context.Entry(user).State = EntityState.Modified; // Set the entity state to Modified
-            _context.SaveChanges(); // Save changes to the database    
+            _context.Users.Attach(user);
+            _context.Entry(user).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteUser(int id)
+        public async Task DeleteUserAsync(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = await _context.Users.FindAsync(id);
             if (user != null)
             {
                 _context.Users.Remove(user);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
 
-        public IEnumerable<Client> QueryClientsByManagerId(int managerId)
+        public async Task<IEnumerable<Client>> QueryClientsByManagerIdAsync(int managerId)
         {
-            return _context.Clients.Where(c => c.ManagerId == managerId).ToList();
+            return await _context.Clients.Where(c => c.ManagerId == managerId).ToListAsync();
         }
 
-        public void DeleteManager(int managerId)
+        public async Task DeleteManagerAsync(int managerId)
         {
-            var manager = _context.Managers.Find(managerId);
+            var manager = await _context.Managers.FindAsync(managerId);
             if (manager != null)
             {
                 _context.Managers.Remove(manager);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
 
-        public void DeleteClient(int clientId)
+        public async Task DeleteClientAsync(int clientId)
         {
-            var client = _context.Clients.Find(clientId);
+            var client = await _context.Clients.FindAsync(clientId);
             if (client != null)
             {
                 _context.Clients.Remove(client);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
     }

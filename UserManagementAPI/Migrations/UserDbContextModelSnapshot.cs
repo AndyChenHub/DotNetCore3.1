@@ -43,8 +43,9 @@ namespace UserManagementAPI.Migrations
                     b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Position")
-                        .HasColumnType("int")
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("ManagerId")

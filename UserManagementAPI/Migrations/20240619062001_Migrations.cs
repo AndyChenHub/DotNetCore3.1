@@ -34,7 +34,7 @@ namespace UserManagementAPI.Migrations
                 columns: table => new
                 {
                     ManagerId = table.Column<int>(nullable: false),
-                    Position = table.Column<int>(maxLength: 50, nullable: false)
+                    Position = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {

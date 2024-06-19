@@ -13,8 +13,8 @@ namespace UserManagementAPI.Models
 
         [ForeignKey("ClientId")]
         public User User { get; set; }
-        
-        public int? ManagerId { get; set;}
+
+        public int? ManagerId { get; set; }
 
         [ForeignKey("ManagerId")]
         public Manager Manager { get; set; }

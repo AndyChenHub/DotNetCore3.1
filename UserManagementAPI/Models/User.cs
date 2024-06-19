@@ -24,7 +24,7 @@ namespace UserManagementAPI.Models
 
         [StringLength(1000)]
         public string? LastName { get; set; }
-        
+
         public UserType UserType { get; set; }
 
         public Manager Manager { get; set; }

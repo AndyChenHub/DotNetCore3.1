@@ -45,10 +45,10 @@ namespace UserManagementAPI.Data
                     .HasMaxLength(1000);
 
                 entity.Property(e => e.UserType)
-                    .IsRequired()
-                    .HasConversion(
-                        v => v.ToString(),
-                        v => (UserType)Enum.Parse(typeof(UserType), v));
+                            .IsRequired()
+                            .HasConversion(
+                                v => v.ToString(),
+                                v => (UserType)Enum.Parse(typeof(UserType), v));
             });
 
             // Configure Manager entity
@@ -64,7 +64,10 @@ namespace UserManagementAPI.Data
 
                 entity.Property(e => e.Position)
                     .HasMaxLength(50)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasConversion(
+                        v => v.ToString(),
+                        v => (Position)Enum.Parse(typeof(Position), v));
 
                 entity.HasOne(e => e.User)
                     .WithOne(u => u.Manager)

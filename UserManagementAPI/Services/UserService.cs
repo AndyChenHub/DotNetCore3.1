@@ -128,7 +128,6 @@ namespace UserManagementAPI.Services
                 throw new ArgumentException($"Manager with id {managerId} not found.");
             }
 
-            // Check if manager has associated clients
             var clients = await _userRepository.QueryClientsByManagerIdAsync(managerId);
             if (clients.Any())
             {

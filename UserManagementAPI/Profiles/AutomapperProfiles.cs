@@ -9,6 +9,10 @@ namespace UserManagementAPI.Profiles
         public AutomapperProfiles()
         {
             CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<Manager, ManagerDto>().ReverseMap();
+            CreateMap<Client, ClientDto>().ReverseMap();
+            CreateMap<Client, ClientWithManagerDto>();
+
         }
     }
 }

@@ -1,12 +1,13 @@
-// using System.Collections.Generic;
-// using System.Threading.Tasks;
-// using UserManagementAPI.Dtos;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using UserManagementAPI.Dtos;
+using UserManagementAPI.Models;
 
-// namespace UserManagementAPI.Services.Interfaces
-// {
-//     public interface IManagerService
-//     {
-//         Task<IEnumerable<ManagerDto>> GetManagersWithClientsAsync();
-//         Task<IEnumerable<ClientDto>> GetClientsByManagerUsernameAsync(string username);
-//     }
-// }
+namespace UserManagementAPI.Services.Interfaces
+{
+    public interface IManagerService
+    {
+        Task<IEnumerable<ManagerDto>> GetAllManagersWithClientsAsync();
+        Task<IEnumerable<ClientDto>> GetClientsByManagerUsernameAsync(string username);
+    }
+}

@@ -10,7 +10,7 @@ using UserManagementAPI.Data;
 namespace UserManagementAPI.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20240619040225_Migrations")]
+    [Migration("20240619062001_Migrations")]
     partial class Migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,8 +45,9 @@ namespace UserManagementAPI.Migrations
                     b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Position")
-                        .HasColumnType("int")
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("ManagerId")

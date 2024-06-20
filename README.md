@@ -54,11 +54,11 @@ Make sure .Net Core 3.1 and Entity Framework Core 3.1 is installed.
 [
     {
         "managerId": 1,
-        "managerName": "Manager A",
+        "managerName": "Kevin",
         "clients": [
             {
-                "clientId": 1,
-                "clientName": "Client A"
+                "clientId": 2,
+                "clientName": "Bob"
             }
         ]
     }

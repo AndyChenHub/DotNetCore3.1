@@ -21,6 +21,17 @@ Make sure .Net Core 3.1 and Entity Framework Core 3.1 is installed.
 
 ## Endpoints
 
+| Endpoint | HTTP Method | Description | HTTP Status Codes |
+|----------|-------------|-------------|-------------------|
+| `/api/managers/clients` | GET | Get all managers with clients | 200, 500 |
+| `/api/managers/{username}/clients` | GET | Get all clients by manager's username | 200, 404, 500 |
+| `/api/users/{userId}` | GET | Get user by ID | 200, 404, 500 |
+| `/api/users/query` | GET | Get users by filter | 200, 404, 500 |
+| `/api/users` | POST | Create a new user | 201, 400, 500 |
+| `/api/users/{userId}` | PATCH | Update user information | 204, 400, 404, 500 |
+| `/api/users/{userId}` | DELETE | Delete a user | 204, 400, 404, 500 |
+| `/api/clients` | GET | Get all clients with managers | 200, 500 |
+
 ### Database Controller
 
 - **Endpoint**: `POST /api/InitialiseDb`

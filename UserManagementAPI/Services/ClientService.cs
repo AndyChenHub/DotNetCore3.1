@@ -1,10 +1,8 @@
 using AutoMapper;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UserManagementAPI.Data.Interfaces;
 using UserManagementAPI.Dtos;
-using UserManagementAPI.Models;
 using UserManagementAPI.Services.Interfaces;
 
 namespace UserManagementAPI.Services

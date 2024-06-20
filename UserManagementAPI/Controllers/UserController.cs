@@ -15,8 +15,6 @@ namespace UserManagementAPI.Controllers.UsersController
     {
         private readonly IUserService _service;
         private readonly ILogger<UsersController> _logger;
-
-        // Constructor
         public UsersController(IUserService service, ILogger<UsersController> logger)
         {
             _service = service;
@@ -106,7 +104,7 @@ namespace UserManagementAPI.Controllers.UsersController
         {
             if (user == null)
             {
-                return BadRequest("UserDto is null.");
+                return BadRequest("User is null.");
             }
 
             try
